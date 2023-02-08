@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { connect } from "react-redux";
 import { updateSearchValue } from "./actions";
+import JobPostings from "./component/jobPostings";
 function App(props) {
   const [occupation, setOccupation] = useState("");
   const submit = (e) => {
@@ -28,6 +29,8 @@ function App(props) {
       <div>
         {props.searchValue != "" && <p>You Searched: {props.searchValue}</p>}
       </div>
+      <br />
+      <JobPostings />
     </div>
   );
 }
