@@ -2,12 +2,14 @@ import axios from "axios";
 
 export const UPDATE_SEARCH_VALUE = "UPDATE_SEARCH_VALUE";
 export const GET_JOBS_SUCCESS = "GET_JOBS_SUCCESS";
+export const SET_IS_FETCHING = "SET_IS_FETCHING";
 export const updateSearchValue = (searchInput) => {
   return { type: UPDATE_SEARCH_VALUE, payload: searchInput };
 };
 
 export const JobSearch = (search) => (dispatch) => {
-  console.log(search);
+  dispatch(setIsFetching(true));
+  // console.log(search);
   const options = {
     method: "GET",
     url: "https://jsearch.p.rapidapi.com/search",
@@ -26,7 +28,14 @@ export const JobSearch = (search) => (dispatch) => {
     })
     .catch(function (error) {
       console.error(error);
+    })
+    .finally(() => {
+      dispatch(setIsFetching(false));
     });
+};
+
+const setIsFetching = (booleanValue) => {
+  return { type: SET_IS_FETCHING, payload: booleanValue };
 };
 
 const getJobsSuccess = (jobs) => {

@@ -4,7 +4,7 @@ const JobCard = (props) => {
   return (
     <div className="card">
       <div className="header">
-        <img src={each.employer_logo} />
+        {each.employer_logo != undefined && <img src={each.employer_logo} />}
         <p>
           {each.job_employment_type}: {each.job_title}
         </p>

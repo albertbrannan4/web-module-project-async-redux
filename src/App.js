@@ -12,7 +12,7 @@ function App(props) {
     props.JobSearch(occupation);
     setOccupation("");
   };
-  console.log(props);
+
   return (
     <div className="App">
       <h1>Redux Job Search</h1>
@@ -29,16 +29,21 @@ function App(props) {
         />
         <input type="submit" value="search" />
       </form>
-      <div>
-        {props.searchValue != "" && <p>Results for... {props.searchValue}</p>}
-      </div>
       <br />
-      <JobPostings />
+      {props.isFetching ? (
+        <h3>searching for {props.searchValue}</h3>
+      ) : (
+        <JobPostings />
+      )}
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
-  return { searchValue: state.searchValue, jobs: state.jobs };
+  return {
+    searchValue: state.searchValue,
+    jobs: state.jobs,
+    isFetching: state.isFetching,
+  };
 };
 export default connect(mapStateToProps, { updateSearchValue, JobSearch })(App);
